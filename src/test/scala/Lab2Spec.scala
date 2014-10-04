@@ -14,10 +14,11 @@ class AndOrSpec extends FlatSpec {
   } 
  
   "And" should "return non-intuitive results from differing types" in {
-    val e1 = N(0)
+    val e1 = N(0.0)
     val e2 = B(true)
     val e3 = eval(Binary(And, e1, e2))
-    assert(e3 === N(0))
+    assert(e3 === N(0.0))
+    
   }
  
   "Or" should "return true if either or both expressions are true" in {
@@ -203,6 +204,8 @@ class ConstSpec extends FlatSpec {
     val e1 = N(3)
     val e2 = Binary(Plus, Var("x"), N(1))
     val e3 = eval(ConstDecl("x", e1, e2)) 
+    // e1 bound to x and in e2 
+    // replace x with e1
     assert(e3 === N(4))
   } 
   
