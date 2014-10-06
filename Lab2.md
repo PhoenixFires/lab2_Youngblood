@@ -1,4 +1,4 @@
-Lab 02 - CSCI 3155
+Lab #2 - CSCI 3155
 =========
 
 Catherine Youngblood
