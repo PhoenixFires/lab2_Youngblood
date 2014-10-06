@@ -1,0 +1,15 @@
+<float> ::= <sign><leadnum><decimal><leadnum> |  
+<leadnum><decimal><leadnum> |
+<sign><leadnum><decimal><leadnum><exp><sign><leadnum> | 
+<leadnum><decimal><leadnum><exp><sign><leadnum> |
+<sign><leadnum><decimal><leadnum><exp><leadnum> |
+<zero><decimal><zero> 
+
+<leadnum> ::= <pos> | <pos><number>
+<number> ::= <digits> | <digits><number>
+<decimal> ::= "." | <decimal>0
+<sign> ::= "-"
+<digits> ::= <zero> | <pos>
+<zero> ::= 0
+<pos>  ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+<exp> :: = "E"
