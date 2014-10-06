@@ -209,6 +209,10 @@ class ConstSpec extends FlatSpec {
     assert(e3 === N(4))
   } 
   
+//  "ConstDeclCat" should "fucking work." {
+//    
+//  }
+  
 }
 
 class IfSpec extends FlatSpec {

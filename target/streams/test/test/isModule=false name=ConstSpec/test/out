@@ -1,0 +1,15 @@
+[0m[[0minfo[0m] [0m[32mConstSpec:[0m[0m
+[0m[[0minfo[0m] [0m[32mConstDecl[0m[0m
+[0m[[0minfo[0m] [0m[31m- should extend the environment with the first expression results bound to the identifier, and then eval the second expression *** FAILED ***[0m[0m
+[0m[[0minfo[0m] [0m[31m  java.util.NoSuchElementException: key not found: x[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.MapLike$class.default(MapLike.scala:228)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.AbstractMap.default(Map.scala:58)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.MapLike$class.apply(MapLike.scala:141)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.AbstractMap.apply(Map.scala:58)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at Lab2$.get(Lab2.scala:32)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at Lab2$.eval(Lab2.scala:92)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at Lab2$.eval(Lab2.scala:158)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at Lab2$.eval(Lab2.scala:110)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at Lab2$.eval(Lab2.scala:158)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at ConstSpec$$anonfun$27.apply$mcV$sp(Lab2Spec.scala:206)[0m[0m
+[0m[[0minfo[0m] [0m[31m  ...[0m[0m
