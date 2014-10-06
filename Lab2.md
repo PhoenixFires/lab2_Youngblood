@@ -108,7 +108,7 @@ Checking if sentences exist in the language described by the grammar above.
    * S &rarr; AaBb &rarr; baBb &rarr; baab
 
 2.) ``bbbab`` &nbsp;&nbsp;&nbsp; No. Would have to be:
-   * S &rarr; AaBb &rarr; AbaBb &rarr; AbbaBb &rarr; bbbaBb &rarr; bbba**a**b
+   * S &rarr; AaBb &rarr; AbaBb &rarr; AbbaBb &rarr; bbbaBb &rarr; bbba **a** b
       * Will end up with >1 a at the end of the sentence
 
 3.) ``bbaaaaa`` &nbsp;&nbsp;&nbsp; No. Cannot end a string with an ``a``.
@@ -153,12 +153,12 @@ a  S  c  B
 ###(2.A)
 Grammar 1: 
 
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*e &nbsp; *::=* &nbsp; operand &nbsp; *|*&nbsp; e &nbsp;operator &nbsp;operand*
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*e &nbsp;* ::= *&nbsp; operand &nbsp; *|*&nbsp; e &nbsp;operator &nbsp;operand*
 
 Grammar 2:
 
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*e &nbsp; *::=* &nbsp; operand &nbsp;esuffix*  
-> *esuffix &nbsp; *::=* &nbsp;operator &nbsp;operand &nbsp;esuffix &nbsp;* |*&nbsp; &epsilon;* 
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*e &nbsp;* ::= *&nbsp; operand &nbsp;esuffix*  
+> *esuffix &nbsp;* ::= *&nbsp;operator &nbsp;operand &nbsp;esuffix &nbsp;* |*&nbsp; &epsilon;* 
 
 **(i)** Grammar 1 can generate sentences that will always start and end with an operand, alternating between operators and operands in the generation of the sentence.  
 [ Ex: *operand operator operand operator operand* ].
