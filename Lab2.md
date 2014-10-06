@@ -153,7 +153,7 @@ a  S  c  B
 ###(2.A)
 Grammar 1: 
 
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*e &nbsp;* ::= *&nbsp; operand &nbsp; *|*&nbsp; e &nbsp;operator &nbsp;operand*
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *e &nbsp;* ::= *&nbsp; operand &nbsp;* |*&nbsp; e &nbsp;operator &nbsp;operand*
 
 Grammar 2:
 
