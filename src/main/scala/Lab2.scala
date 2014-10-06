@@ -101,50 +101,6 @@ object Lab2 extends jsy.util.JsyApplication {
           case _ => throw new UnsupportedOperationException
         }
       }
-      /*case Binary(bop, e1, e2) => (e1: @unchecked) match {
-        case Undefined => B(false)
-        case _ => (e2: @unchecked) match {
-          case Undefined => B(false)
-          case _ => (bop: @unchecked) match {
-            case Plus => N(toNumber(eToVal(e1)) + toNumber(eToVal(e2)))
-            case Minus => N(toNumber(eToVal(e1)) - toNumber(eToVal(e2)))
-            case Times => N(toNumber(eToVal(e1)) * toNumber(eToVal(e2)))
-            case Div => N(toNumber(eToVal(e1)) / toNumber(eToVal(e2)))
-
-            case Eq => B(toNumber(eToVal(e1)) == toNumber(eToVal(e2)))
-            case Ne => B(toNumber(eToVal(e1)) != toNumber(eToVal(e2)))
-            case Lt => B(toNumber(eToVal(e1)) < toNumber(eToVal(e2)))
-            case Le => B(toNumber(eToVal(e1)) <= toNumber(eToVal(e2)))
-            case Gt => B(toNumber(eToVal(e1)) > toNumber(eToVal(e2)))
-            case Ge => B(toNumber(eToVal(e1)) >= toNumber(eToVal(e2)))
-
-            case And => e1 match {
-              case N(n) => if (toBoolean(eToVal(e1)) && toBoolean(eToVal(e2))) { e1 } else { N(0.0) }
-              case S(str) => S(toStr(B(toBoolean(eToVal(e1)) && toBoolean(eToVal(e2)))))
-              case _ => e2 match {
-                case N(n) => if (toBoolean(eToVal(e1)) && toBoolean(eToVal(e2))) { e2 } else { N(0.0) }
-                case B(b) => B(toBoolean(eToVal(e1)) && toBoolean(eToVal(e2)))
-                case S(str) => S(toStr(B(toBoolean(eToVal(e1)) && toBoolean(eToVal(e2)))))
-                case _ => throw new UnsupportedOperationException
-              }
-            }
-            case Or => e1 match {
-              case N(n) => if (toBoolean(eToVal(e1)) || toBoolean(eToVal(e2))) { e1 } else { N(0.0) }
-              case S(str) => S(toStr(B(toBoolean(eToVal(e1)) || toBoolean(eToVal(e2)))))
-              case _ => e2 match {
-                case N(n) => if (toBoolean(eToVal(e1)) || toBoolean(eToVal(e2))) { e2 } else { N(0.0) }
-                case B(b) => B(toBoolean(eToVal(e1)) || toBoolean(eToVal(e2)))
-                case S(str) => S(toStr(B(toBoolean(eToVal(e1)) || toBoolean(eToVal(e2)))))
-                case _ => throw new UnsupportedOperationException
-              }
-            }
-
-            case Seq => { eToVal(e1); eToVal(e2) }
-
-            case _ => throw new UnsupportedOperationException
-          }
-        }
-      }*/
 
       case Binary(bop, e1, e2) => (e1, e2) match {
         case (Undefined, e2) => bop match {
@@ -176,7 +132,11 @@ object Lab2 extends jsy.util.JsyApplication {
           case Gt => B(false)
           case Ge => B(false)
           case And => Undefined
-          case Or => eToVal(e1)
+          case Or => e1 match {
+            case N(0.0) => Undefined
+            case B(false) => Undefined
+            case _ => eToVal(e1)
+          }
           case Seq => Undefined
         }
         case (_, _) => (bop: @unchecked) match {
@@ -191,72 +151,60 @@ object Lab2 extends jsy.util.JsyApplication {
 
           case Eq => (e1, e2) match {
             case (S(s1), S(s2)) => B(s1 == s2)
-            case (S(s), _) => B(false)
-            case (_, S(s)) => B(false)
+            case (S(s), e) => if (!toNumber(S(s)).isNaN) {B(toNumber(S(s)) == toNumber(eToVal(e)))} else {B(false)}
+            case (e, S(s)) => if (!toNumber(S(s)).isNaN) {B(toNumber(eToVal(e)) == toNumber(S(s)))} else {B(false)}
             case (_, _) => B(toNumber(eToVal(e1)) == toNumber(eToVal(e2)))
           }
           case Ne => (e1, e2) match {
             case (S(s1), S(s2)) => B(s1 != s2)
-            case (S(s), _) => B(true)
-            case (_, S(s)) => B(true)
-            case (_, _) => B(toNumber(eToVal(e1)) == toNumber(eToVal(e2)))
+            case (S(s), e) => if (!toNumber(S(s)).isNaN) {B(toNumber(S(s)) != toNumber(eToVal(e)))} else {B(false)}
+            case (e, S(s)) => if (!toNumber(S(s)).isNaN) {B(toNumber(eToVal(e)) != toNumber(S(s)))} else {B(false)}
+            case (_, _) => B(toNumber(eToVal(e1)) != toNumber(eToVal(e2)))
           }
           case Lt => (e1, e2) match {
             case (S(s1), S(s2)) => B(s1 < s2)
-            case (S(s), _) => B(false)
-            case (_, S(s)) => B(false)
+            case (S(s), e) => if (!toNumber(S(s)).isNaN) {B(toNumber(S(s)) < toNumber(eToVal(e)))} else {B(false)}
+            case (e, S(s)) => if (!toNumber(S(s)).isNaN) {B(toNumber(eToVal(e)) < toNumber(S(s)))} else {B(false)}
             case (_, _) => B(toNumber(eToVal(e1)) < toNumber(eToVal(e2)))
           }
           case Le => (e1, e2) match {
             case (S(s1), S(s2)) => B(s1 <= s2)
-            case (S(s), _) => B(false)
-            case (_, S(s)) => B(false)
+            case (S(s), e) => if (!toNumber(S(s)).isNaN) {B(toNumber(S(s)) <= toNumber(eToVal(e)))} else {B(false)}
+            case (e, S(s)) => if (!toNumber(S(s)).isNaN) {B(toNumber(eToVal(e)) <= toNumber(S(s)))} else {B(false)}
             case (_, _) => B(toNumber(eToVal(e1)) <= toNumber(eToVal(e2)))
           }
           case Gt => (e1, e2) match {
             case (S(s1), S(s2)) => B(s1 > s2)
-            case (S(s), _) => B(false)
-            case (_, S(s)) => B(false)
+            case (S(s), e) => if (!toNumber(S(s)).isNaN) {B(toNumber(S(s)) > toNumber(eToVal(e)))} else {B(false)}
+            case (e, S(s)) => if (!toNumber(S(s)).isNaN) {B(toNumber(eToVal(e)) > toNumber(S(s)))} else {B(false)}
             case (_, _) => B(toNumber(eToVal(e1)) > toNumber(eToVal(e2)))
           }
           case Ge => (e1, e2) match {
             case (S(s1), S(s2)) => B(s1 >= s2)
-            case (S(s), _) => B(false)
-            case (_, S(s)) => B(false)
+            case (S(s), e) => if (!toNumber(S(s)).isNaN) {B(toNumber(S(s)) >= toNumber(eToVal(e)))} else {B(false)}
+            case (e, S(s)) => if (!toNumber(S(s)).isNaN) {B(toNumber(eToVal(e)) >= toNumber(S(s)))} else {B(false)}
             case (_, _) => B(toNumber(eToVal(e1)) >= toNumber(eToVal(e2)))
           }
 
-          case And => (e1, e2) match {
+          case And =>  (e1, e2) match {
             case (S(s1), S(s2)) => S(s2)
             case (B(b1), B(b2)) => B(b1 && b2)
+            case (N(n1), N(n2)) => if (n1 == 0.0 || n2 == 0.0) { N(0.0) } else (e2)
+            case (N(n), e2) => if (n == 0.0) { N(0.0) } else { eToVal(e2) }
+            case (e1, N(n)) => if (n == 0.0) { N(0.0) } else { eToVal(e1) }
             case (B(b), e2) => if (b) { eToVal(e2) } else { B(false) }
             case (e1, B(b)) => if (b) { B(b) } else { B(false) }
             case (_, e2) => eToVal(e2)
-            /*
-            case N(n) => if (toBoolean(eToVal(e1)) && toBoolean(eToVal(e2))) { e1 } else { N(0.0) }
-            case S(str) => S(toStr(B(toBoolean(eToVal(e1)) && toBoolean(eToVal(e2)))))
-            case _ => e2 match {
-              case N(n) => if (toBoolean(eToVal(e1)) && toBoolean(eToVal(e2))) { e2 } else { N(0.0) }
-              case B(b) => B(toBoolean(eToVal(e1)) && toBoolean(eToVal(e2)))
-              case S(str) => S(toStr(B(toBoolean(eToVal(e1)) && toBoolean(eToVal(e2)))))
-              case _ => throw new UnsupportedOperationException
-            }
-            * 
-            */
           }
           case Or => (e1, e2) match {
-            //case (B(b1),B(b2)) => if (!b1) {B(b2)} else {B(b1)}
+            case (N(0), B(false)) => B(false)
+            case (B(false), N(0)) => N(0.0)
+            case (N(n1), N(n2)) => if (n1 == 0.0) { N(n2) } else { N(n1) }
+            case (N(n), e2) => if (n == 0.0) { eToVal(e2) } else { N(n) }
+            case (e1, N(n)) => eToVal(e1)
+            case (B(b1), B(b2)) => if (!b1) { B(b2) } else { B(b1) }
             case (B(b), e2) => if (!b) { eToVal(e2) } else { B(b) }
             case (e1, e2) => eToVal(e1)
-            /*
-            case N(n) => if (toBoolean(eToVal(e1)) || toBoolean(eToVal(e2))) { e1 } else { N(0.0) }
-            case S(str) => S(toStr(B(toBoolean(eToVal(e1)) || toBoolean(eToVal(e2)))))
-            case _ => e2 match {
-              case N(n) => if (toBoolean(eToVal(e1)) || toBoolean(eToVal(e2))) { e2 } else { N(0.0) }
-              case B(b) => B(toBoolean(eToVal(e1)) || toBoolean(eToVal(e2)))
-              case S(str) => S(toStr(B(toBoolean(eToVal(e1)) || toBoolean(eToVal(e2)))))
-              case _ => throw new UnsupportedOperationException
-            }*/
           }
 
           case Seq => { eToVal(e1); eToVal(e2) }
